@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-image">
                 <figure class="image is-128x128">
-                    <img :src="poke.pokeFront" alt="Placeholder image">
+                    <img :src="poke.pokePosFront ? poke.pokeFront : poke.pokeBack " alt="Placeholder image">
                 </figure>
             </div>
             <div class="card-content">
@@ -11,6 +11,7 @@
                     <div class="media-content">
                         <p class="title is-4"> {{ num }} {{ pokemon }}</p>
                         <p class="subtitle is-6">{{ poke.pokeType }}</p>
+                        <button class="button is-small is-info" :onclick="this.alterPokePos">{{ this.poke.pokePosFront ? 'Mostrar de Costa': 'Mostrar de Frente'}}</button>
                     </div>
                 </div>
                 <div class="content">
@@ -43,6 +44,11 @@ import axios from "axios";
             
                 .catch(error => console.log(error));
         },
+        methods: {
+            alterPokePos() {
+                this.poke.pokePosFront = !this.poke.pokePosFront;
+            }
+        },
         data () {
             return {
                 description: [],
@@ -50,8 +56,8 @@ import axios from "axios";
                     pokeType: {},
                     pokeFront: '',
                     pokeBack: '',
+                    pokePosFront: true,
                 }
-
             }
         },
         props: {
@@ -71,11 +77,11 @@ import axios from "axios";
         display: flex;
         align-items: center;
         justify-content: center;
+        background: linear-gradient(to bottom, white, rgba(221, 221, 221, 0.726));
     }
     .image{
-        background-color: rgba(209, 202, 202, 0.7);
-        box-shadow: 0 0 0 4px black;
         margin: 8%;
+        background: linear-gradient(to bottom, #ffffff, #00ff00);
     }
     .card-image{
         height: 80%;
